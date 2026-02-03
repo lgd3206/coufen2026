@@ -78,6 +78,10 @@ export default function RealtimeHall() {
     matched: submissions.filter((s) => s.status === 'matched').length,
     solo: submissions.filter((s) => s.mode === 'solo').length,
     duo: submissions.filter((s) => s.mode === 'duo').length,
+    // 新增：分类统计
+    needPeople: submissions.filter((s) => s.status === 'pending' && s.mode === 'duo').length, // 缺人
+    findTeam: submissions.filter((s) => s.status === 'pending' && s.mode === 'solo').length,  // 找队伍
+    success: submissions.filter((s) => s.status === 'matched').length, // 已配成功
   };
 
   if (loading) {
@@ -104,6 +108,25 @@ export default function RealtimeHall() {
         <div className={styles.statCard}>
           <div className={styles.statValue}>{stats.matched}</div>
           <div className={styles.statLabel}>已匹配</div>
+        </div>
+      </div>
+
+      {/* 分类统计 */}
+      <div className={styles.categoryStats}>
+        <div className={styles.categoryStat + ' ' + styles.categoryNeed}>
+          <span className={styles.categoryIcon}>🔴</span>
+          <span className={styles.categoryLabel}>缺人</span>
+          <span className={styles.categoryCount}>{stats.needPeople}</span>
+        </div>
+        <div className={styles.categoryStat + ' ' + styles.categoryFind}>
+          <span className={styles.categoryIcon}>🔵</span>
+          <span className={styles.categoryLabel}>找队伍</span>
+          <span className={styles.categoryCount}>{stats.findTeam}</span>
+        </div>
+        <div className={styles.categoryStat + ' ' + styles.categorySuccess}>
+          <span className={styles.categoryIcon}>✅</span>
+          <span className={styles.categoryLabel}>已配成功</span>
+          <span className={styles.categoryCount}>{stats.success}</span>
         </div>
       </div>
 
@@ -163,6 +186,19 @@ function SubmissionCard({ submission }: { submission: Submission }) {
   const isPending = submission.status === 'pending';
   const [copied, setCopied] = useState(false);
 
+  // 获取状态标签和颜色
+  const getStatusInfo = () => {
+    if (isMatched) {
+      return { label: '已配成功', icon: '✅', color: 'success' };
+    }
+    if (submission.mode === 'duo') {
+      return { label: '缺人', icon: '🔴', color: 'need' };
+    }
+    return { label: '找队伍', icon: '🔵', color: 'find' };
+  };
+
+  const statusInfo = getStatusInfo();
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(submission.code);
@@ -174,18 +210,14 @@ function SubmissionCard({ submission }: { submission: Submission }) {
   };
 
   return (
-    <div className={`${styles.card} ${isMatched ? styles.cardMatched : ''}`}>
+    <div className={`${styles.card} ${styles['card' + statusInfo.color.charAt(0).toUpperCase() + statusInfo.color.slice(1)]}`}>
       {/* 卡片头部：时间 + 状态标签 */}
       <div className={styles.cardHeader}>
         <div className={styles.timeAndStatus}>
           <span className={styles.time}>{getRelativeTime(submission.created_at)}</span>
-          {submission.mode === 'solo' ? (
-            <span className={styles.badge + ' ' + styles.badgeSolo}>👤 找队伍</span>
-          ) : (
-            <span className={styles.badge + ' ' + styles.badgeDuo}>👥 组队伍</span>
-          )}
-          {isMatched && <span className={styles.badge + ' ' + styles.badgeSuccess}>✓ 已匹配</span>}
-          {isPending && <span className={styles.badge + ' ' + styles.badgePending}>⏳ 等待中</span>}
+          <span className={`${styles.badge} ${styles['badge' + statusInfo.color.charAt(0).toUpperCase() + statusInfo.color.slice(1)]}`}>
+            {statusInfo.icon} {statusInfo.label}
+          </span>
         </div>
       </div>
 
