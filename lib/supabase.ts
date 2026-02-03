@@ -87,7 +87,7 @@ export const db = {
   },
 
   // 插入新提交
-  async insertSubmission(submission: Omit<Submission, 'id' | 'created_at' | 'expires_at' | 'status' | 'matched_with'>) {
+  async insertSubmission(submission: Omit<Submission, 'id' | 'created_at' | 'expires_at' | 'status' | 'matched_with' | 'matched_scores'>) {
     const { data, error } = await supabase
       .from('submissions')
       .insert(submission)
