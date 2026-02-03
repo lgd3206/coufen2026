@@ -1,0 +1,130 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+/* 头部 */
+.header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  color: white;
+  padding: var(--space-3xl) 0;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.logo {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.logoIcon {
+  font-size: 56px;
+}
+
+.tagline {
+  font-size: 18px;
+  opacity: 0.95;
+  font-weight: 400;
+}
+
+/* 主要内容 */
+.main {
+  flex: 1;
+  padding: var(--space-3xl) 0;
+}
+
+.section {
+  margin-bottom: var(--space-3xl);
+}
+
+.sectionTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.sectionIcon {
+  font-size: 36px;
+}
+
+.sectionDesc {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  margin-bottom: var(--space-2xl);
+}
+
+/* 页脚 */
+.footer {
+  background: var(--color-bg-elevated);
+  border-top: 1px solid var(--color-border-light);
+  padding: var(--space-2xl) 0;
+  text-align: center;
+}
+
+.footerText {
+  font-size: 14px;
+  color: var(--color-text);
+  margin-bottom: var(--space-sm);
+}
+
+.footerNote {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .header {
+    padding: var(--space-2xl) 0;
+  }
+
+  .logo {
+    font-size: 32px;
+  }
+
+  .logoIcon {
+    font-size: 40px;
+  }
+
+  .tagline {
+    font-size: 16px;
+  }
+
+  .main {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .sectionTitle {
+    font-size: 24px;
+  }
+
+  .sectionIcon {
+    font-size: 28px;
+  }
+
+  .sectionDesc {
+    font-size: 14px;
+  }
+
+  .footer {
+    padding: var(--space-xl) 0;
+  }
+}

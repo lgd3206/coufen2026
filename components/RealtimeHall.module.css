@@ -1,0 +1,296 @@
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3xl);
+  color: var(--color-text-secondary);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: var(--space-md);
+}
+
+/* 统计卡片 */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.statCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.statValue {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.statLabel {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+/* 筛选栏 */
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+}
+
+.filterGroup {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.filterBtn {
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filterBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.filterBtn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.searchBox {
+  flex: 0 0 200px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: all var(--transition-fast);
+}
+
+.searchInput:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.1);
+}
+
+/* 列表 */
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-lg);
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-3xl);
+  color: var(--color-text-muted);
+}
+
+/* 卡片 */
+.card {
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: all var(--transition-fast);
+  animation: fadeIn 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cardMatched {
+  border-color: var(--color-accent);
+  background: rgba(82, 196, 26, 0.05);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.cardScore {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+}
+
+.scoreValue {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+}
+
+.scoreLabel {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.cardBadges {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-items: flex-end;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.badgeSolo {
+  background: rgba(22, 119, 255, 0.1);
+  color: var(--color-primary);
+}
+
+.badgeDuo {
+  background: rgba(250, 173, 20, 0.1);
+  color: var(--color-warning);
+}
+
+.badgeSuccess {
+  background: rgba(82, 196, 26, 0.1);
+  color: var(--color-accent);
+}
+
+.badgePending {
+  background: rgba(140, 140, 140, 0.1);
+  color: var(--color-text-muted);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.cardInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 14px;
+}
+
+.infoLabel {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  min-width: 50px;
+}
+
+.infoValue {
+  color: var(--color-text);
+  flex: 1;
+}
+
+.code {
+  font-family: var(--font-mono);
+  background: var(--color-bg-elevated);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}
+
+/* 响应式 */
+@media (max-width: 1024px) {
+  .list {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .statCard {
+    padding: var(--space-md);
+  }
+
+  .statValue {
+    font-size: 24px;
+  }
+
+  .statLabel {
+    font-size: 12px;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterGroup {
+    flex-wrap: wrap;
+  }
+
+  .searchBox {
+    flex: 1;
+  }
+
+  .list {
+    grid-template-columns: 1fr;
+  }
+
+  .scoreValue {
+    font-size: 28px;
+  }
+}

@@ -1,0 +1,145 @@
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-xl) 0;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-3xl);
+}
+
+.step {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: flex-start;
+}
+
+.stepNumber {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.stepContent {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.stepTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-sm);
+}
+
+.stepDesc {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.tips {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.tipsTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-lg);
+}
+
+.tipsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.tipsList li {
+  padding-left: var(--space-lg);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+  position: relative;
+}
+
+.tipsList li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-lg) 0;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .steps {
+    gap: var(--space-lg);
+  }
+
+  .step {
+    gap: var(--space-md);
+  }
+
+  .stepNumber {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .stepTitle {
+    font-size: 16px;
+  }
+
+  .stepDesc {
+    font-size: 13px;
+  }
+
+  .tips {
+    padding: var(--space-lg);
+  }
+
+  .tipsTitle {
+    font-size: 16px;
+  }
+
+  .tipsList li {
+    font-size: 13px;
+  }
+}
