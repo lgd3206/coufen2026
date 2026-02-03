@@ -20,6 +20,7 @@ export interface Submission {
   mode: 'solo' | 'duo';
   status: 'pending' | 'matched' | 'expired';
   matched_with: string[] | null;
+  matched_scores: number[] | null;
   created_at: string;
   expires_at: string;
 }
@@ -72,12 +73,13 @@ export const db = {
   },
 
   // 更新匹配状态
-  async updateMatchStatus(userIds: string[]) {
+  async updateMatchStatus(userIds: string[], scores?: number[]) {
     const { error } = await supabase
       .from('submissions')
       .update({
         status: 'matched',
-        matched_with: userIds
+        matched_with: userIds,
+        matched_scores: scores || null
       })
       .in('id', userIds);
 

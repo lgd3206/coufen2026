@@ -212,7 +212,16 @@ function SubmissionCard({ submission }: { submission: Submission }) {
 
   const handleShare = async () => {
     try {
-      const shareText = `🎉 芝麻分组队成功！${submission.score} + ? + ? = 2026\n1分钟就匹配到了，你也来试试\n👉 https://www.coufen2026.xyz\n#芝麻分组队 #2026`;
+      // 使用 matched_scores 生成动态分享文案
+      let shareText: string;
+
+      if (submission.matched_scores && submission.matched_scores.length === 3) {
+        const [score1, score2, score3] = submission.matched_scores;
+        shareText = `🎉 芝麻分组队成功！${score1} + ${score2} + ${score3} = 2026\n1分钟就匹配到了，你也来试试\n👉 https://coufen2026.xyz\n#芝麻分组队 #2026`;
+      } else {
+        // 降级方案：如果没有 matched_scores，使用原来的格式
+        shareText = `🎉 芝麻分组队成功！${submission.score} + ? + ? = 2026\n1分钟就匹配到了，你也来试试\n👉 https://coufen2026.xyz\n#芝麻分组队 #2026`;
+      }
 
       if (navigator.share) {
         await navigator.share({

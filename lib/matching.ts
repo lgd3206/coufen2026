@@ -47,7 +47,7 @@ export async function findMatch(
           // 验证分数总和
           if (matchedScores.reduce((a, b) => a + b, 0) === 2026) {
             // 更新数据库状态
-            await db.updateMatchStatus(matchedUsers);
+            await db.updateMatchStatus(matchedUsers, matchedScores);
 
             return {
               success: true,
@@ -83,7 +83,7 @@ export async function findMatch(
           // 验证分数总和
           if (matchedScores.reduce((a, b) => a + b, 0) === 2026) {
             // 更新数据库状态
-            await db.updateMatchStatus(matchedUsers);
+            await db.updateMatchStatus(matchedUsers, matchedScores);
 
             return {
               success: true,
