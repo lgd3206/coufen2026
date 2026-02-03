@@ -98,3 +98,27 @@ export function isValidMatch(scores: number[]): boolean {
   const sum = scores.reduce((a, b) => a + b, 0);
   return sum === 2026;
 }
+
+/**
+ * 将时间戳转换为相对时间
+ * @param timestamp ISO 时间字符串
+ * @returns 相对时间字符串（如：14小时前）
+ */
+export function getRelativeTime(timestamp: string): string {
+  const now = new Date();
+  const time = new Date(timestamp);
+  const diffMs = now.getTime() - time.getTime();
+
+  const diffSeconds = Math.floor(diffMs / 1000);
+  const diffMinutes = Math.floor(diffSeconds / 60);
+  const diffHours = Math.floor(diffMinutes / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  if (diffSeconds < 60) return '刚刚';
+  if (diffMinutes < 60) return `${diffMinutes}分钟前`;
+  if (diffHours < 24) return `${diffHours}小时前`;
+  if (diffDays < 7) return `${diffDays}天前`;
+
+  // 超过7天显示完整日期
+  return time.toLocaleDateString('zh-CN');
+}

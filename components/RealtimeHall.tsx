@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase, Submission } from '@/lib/supabase';
+import { getRelativeTime } from '@/lib/parser';
 import styles from './RealtimeHall.module.css';
 
 export default function RealtimeHall() {
@@ -160,15 +161,24 @@ function SubmissionCard({ submission }: { submission: Submission }) {
   const gap = 2026 - submission.score;
   const isMatched = submission.status === 'matched';
   const isPending = submission.status === 'pending';
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(submission.code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('复制失败:', err);
+    }
+  };
 
   return (
     <div className={`${styles.card} ${isMatched ? styles.cardMatched : ''}`}>
+      {/* 卡片头部：时间 + 状态标签 */}
       <div className={styles.cardHeader}>
-        <div className={styles.cardScore}>
-          <span className={styles.scoreValue}>{submission.score}</span>
-          <span className={styles.scoreLabel}>分</span>
-        </div>
-        <div className={styles.cardBadges}>
+        <div className={styles.timeAndStatus}>
+          <span className={styles.time}>{getRelativeTime(submission.created_at)}</span>
           {submission.mode === 'solo' ? (
             <span className={styles.badge + ' ' + styles.badgeSolo}>👤 找队伍</span>
           ) : (
@@ -179,20 +189,30 @@ function SubmissionCard({ submission }: { submission: Submission }) {
         </div>
       </div>
 
+      {/* 卡片主体：分数突出显示 */}
       <div className={styles.cardBody}>
-        <div className={styles.cardInfo}>
-          <span className={styles.infoLabel}>缺口：</span>
-          <span className={styles.infoValue}>{gap} 分</span>
+        {/* 分数（放大显示） */}
+        <div className={styles.scoreSection}>
+          <span className={styles.scorePrefix}>有</span>
+          <span className={styles.scoreLarge}>{submission.score}</span>
+          <span className={styles.scoreSuffix}>分</span>
         </div>
-        <div className={styles.cardInfo}>
-          <span className={styles.infoLabel}>口令：</span>
-          <span className={styles.infoValue + ' ' + styles.code}>{submission.code}</span>
+
+        {/* 缺口信息 */}
+        <div className={styles.gapInfo}>
+          缺 {gap} 分
         </div>
-        <div className={styles.cardInfo}>
-          <span className={styles.infoLabel}>时间：</span>
-          <span className={styles.infoValue}>
-            {new Date(submission.created_at).toLocaleString('zh-CN')}
-          </span>
+
+        {/* 口令和复制按钮 */}
+        <div className={styles.codeSection}>
+          <button
+            className={`${styles.copyBtn} ${copied ? styles.copied : ''}`}
+            onClick={handleCopy}
+            title="复制口令"
+          >
+            {copied ? '✓ 已复制' : '复制'}
+          </button>
+          <span className={styles.code}>{submission.code}</span>
         </div>
       </div>
     </div>
