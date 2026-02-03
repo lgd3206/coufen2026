@@ -185,6 +185,7 @@ function SubmissionCard({ submission }: { submission: Submission }) {
   const isMatched = submission.status === 'matched';
   const isPending = submission.status === 'pending';
   const [copied, setCopied] = useState(false);
+  const [shared, setShared] = useState(false);
 
   // 获取状态标签和颜色
   const getStatusInfo = () => {
@@ -206,6 +207,26 @@ function SubmissionCard({ submission }: { submission: Submission }) {
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('复制失败:', err);
+    }
+  };
+
+  const handleShare = async () => {
+    try {
+      const shareText = `🎉 芝麻分组队成功！${submission.score} + ? + ? = 2026\n1分钟就匹配到了，你也来试试\n👉 https://www.coufen2026.xyz\n#芝麻分组队 #2026`;
+
+      if (navigator.share) {
+        await navigator.share({
+          title: '芝麻分凑分',
+          text: shareText,
+        });
+      } else {
+        // 降级方案：复制到剪贴板
+        await navigator.clipboard.writeText(shareText);
+        setShared(true);
+        setTimeout(() => setShared(false), 2000);
+      }
+    } catch (err) {
+      console.error('分享失败:', err);
     }
   };
 
@@ -246,6 +267,19 @@ function SubmissionCard({ submission }: { submission: Submission }) {
           </button>
           <span className={styles.code}>{submission.code}</span>
         </div>
+
+        {/* 操作按钮（仅在已匹配时显示） */}
+        {isMatched && (
+          <div className={styles.actionButtons}>
+            <button
+              className={`${styles.actionBtn} ${styles.shareBtn} ${shared ? styles.shared : ''}`}
+              onClick={handleShare}
+              title="分享成功"
+            >
+              {shared ? '✓ 已复制' : '📤 分享'}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
